@@ -45,11 +45,11 @@ const Signup = () => {
     <div className='min-h-screen mt-20'>
        <div className='flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5 ' >
           <div className='flex-1 '>
-            <Link to='/' className="  text-4xl  font-bold ">
+            <Link to='/' className="  text-5xl  font-bold ">
             <span className="px-2 py-1 bg-gradient-to-r from-amber-300 via-orange-300 to-red-300 rounded-xl text-white ">Reactfull</span>
              Minds
             </Link>
-            <p className='mt-2 text-gray-500 text-sm'>
+            <p className='mt-4 text-gray-500 text-sm'>
               Interactive Blogging Platform for Sharing and Reacting to Posts.
             </p>
           </div>

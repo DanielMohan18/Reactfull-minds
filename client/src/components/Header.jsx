@@ -20,7 +20,7 @@ const Header = () => {
         setcolor("projects");
     }   
   return (
-   <div className="border-b-2 flex flex-col justify-between px-11 py-2">
+   <div className="border-b-2 flex flex-col justify-between px-11 py-2 w-full ">
     <Navbar >
       <Link to='/' className=" self-center whitespace-nowrap text-sm sm:text-xl font-semibold ">
           <span className="px-2 py-1 bg-gradient-to-r from-amber-300 via-orange-300 to-red-300 rounded-xl text-white ">Reactfull</span>
