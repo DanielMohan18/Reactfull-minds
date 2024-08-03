@@ -4,8 +4,10 @@ import Dashboard from './pages/Dashboard'
 import About from './pages/About'
 import Signin from './pages/Signin'
 import Projects from './pages/Projects'
-import Signup from './pages/Signup'
+import SignUp from './pages/SignUp'
 import Header from './components/Header'
+
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -15,7 +17,7 @@ const App = () => {
      <Route path='/dashboard' element={<Dashboard />}/>
      <Route path='/about' element={<About />}/>
      <Route path='/signin' element={<Signin />}/>
-     <Route path='signup' element={<Signup />}/>
+     <Route path='/signup' element={<SignUp />}/>
      <Route path='/projects' element={<Projects />}/>
     </Routes>
     </BrowserRouter>
