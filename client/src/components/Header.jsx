@@ -1,24 +1,10 @@
 import { Button, Navbar,  TextInput } from "flowbite-react"
 import { Link } from "react-router-dom"
-import {FaSearch,FaMoon} from "react-icons/fa"
-import { FiMenu } from "react-icons/fi";
-import { useState } from "react";
-import { GoDotFill } from "react-icons/go";
-const Header = () => {
-    const [value,setvalue] = useState(false);
-    const [color,setcolor] = useState("home");
-    const toggleMenu = () => {
-        setvalue(!value);
-      };  
-    const colorh =()=>{
-        setcolor("home");
-    }
-    const colora =()=>{
-        setcolor("about");
-    } 
-    const colorp =()=>{
-        setcolor("projects");
-    }   
+import {FaMoon} from "react-icons/fa"
+import { useLocation } from "react-router-dom";
+import { AiOutlineSearch } from "react-icons/ai";
+const Header = () => {  
+  const path=useLocation().pathname;
   return (
    <div className="border-b-2 flex flex-col justify-between px-11 py-2 w-full ">
     <Navbar >
@@ -27,52 +13,41 @@ const Header = () => {
           Minds
       </Link>
       <form>
-        <input rightIcon={FaSearch} type="text" placeholder="search..." className="px-3  py-1 hidden md:inline rounded-xl border outline-none border-gray-500">
-        </input>
+        {/* <input rightIcon={FaSearch} type="text" placeholder="search..." className="px-3  py-1 hidden md:inline rounded-xl border outline-none border-gray-500">
+        </input> */}
+        <TextInput type="text"
+        placeholder="Search..."
+        rightIcon={AiOutlineSearch}
+        className='hidden lg:inline'>
+          
+        </TextInput>
       </form>
-      <Button className="w-12 h-10 flex justify-center items-center rounded-3xl md:hidden" color="gray" pill >
-        <FaSearch />
+      <Button className="w-12 h-10 lg:hidden flex justify-center items-center rounded-3xl " color="gray" pill >
+        <AiOutlineSearch /> 
       </Button>
       <div className="flex flex-wrap gap-2 md:order-2">
         <Button className="w-12 h-10 flex justify-center items-center rounded-3xl outline" color="gray" pill>
          <FaMoon />
         </Button>
         <Link to='/signin' >
-         <Button className="rounded-lg text-black hover:bg-gradient-to-r from-amber-300 via-orange-300 to-red-300 hover:text-white font-semibold px-5 outline text-xl whitespace-nowrap"  color="gray" >
-           Sign in
+         <Button outline gradientDuoTone="redToYellow">
+          Sign In
          </Button>
         </Link>
-
-        <FiMenu className="w-8 h-8 px-1  md:hidden border-2 mt-1"
-        onClick={toggleMenu}/>
-       
+       <Navbar.Toggle/>
       </div>
-      <Navbar  className="flex gap-2 hidden md:inline">
-      <Link to='/' >
-      <div onClick={colorh} className={`px-2 hover:text-blue-400  ${color=="home" ? 'text-blue-400':''}`}  >Home</div>
-      </Link>
-      <Link to='/about'>
-      <div onClick={colora} className={`px-2 hover:text-blue-400  ${color=="about" ? 'text-blue-400':''}`}> About</div>
-      </Link>
-      <Link to='/projects'>
-      <div onClick={colorp} className={`px-2 hover:text-blue-400  ${color=="projects" ? 'text-blue-400':''}`}>Projects</div>
-      </Link>
-      </Navbar> 
-   </Navbar>
-    <div className={`flex flex-col pl-2 ${ value ? 'inline':'hidden'}`}>
-      <Link to='/'>
-       <div onClick={colorh} className={` hover:text-blue-400 border-b-2 px-8 flex ${color=="home" ? 'text-blue-400':''}`}>
-        <GoDotFill className="mt-1 pr-1"/> Home</div>
-      </Link> 
-      <Link to='/about'>
-      <div onClick={colora} className={` hover:text-blue-400 border-b-2 px-8 flex ${color=="about" ? 'text-blue-400':''}`}>
-      <GoDotFill className="mt-1 pr-1"/> About</div>
-      </Link>
-      <Link to='/projects'>
-      <div onClick={colorp} className={` hover:text-blue-400 border-b-2 px-8 flex ${color=="projects" ? 'text-blue-400':''}`}>
-      <GoDotFill className="mt-1 pr-1"/>Projects</div>
-      </Link>
-    </div>
+      <Navbar.Collapse>
+          <Navbar.Link active={path=== "/"} as={'div'}>
+            <Link className=" text-base" to='/'>Home</Link>
+          </Navbar.Link>
+          <Navbar.Link active={path=== "/about"} as={'div'}>
+            <Link className=" text-base" to='/about'>About</Link>
+          </Navbar.Link>
+          <Navbar.Link active={path=== "/projects"} as={'div'}>
+            <Link className=" text-base" to='/projects'>Projects</Link>
+          </Navbar.Link>
+        </Navbar.Collapse>
+        </Navbar>
    </div>
   )
 }

@@ -1,6 +1,8 @@
-import { Alert, Button, Label, Spinner, Textarea } from 'flowbite-react'
+import { Alert, Button, Label, Spinner, TextInput, Textarea } from 'flowbite-react'
 import { set } from 'mongoose';
 import React, { useState } from 'react'
+import { HiInformationCircle } from "react-icons/hi";
+import { FaHeart } from "react-icons/fa";
 import { Link,useNavigate } from 'react-router-dom'
 
 const Signup = () => {
@@ -50,7 +52,12 @@ const Signup = () => {
              Minds
             </Link>
             <p className='mt-4 text-gray-500 text-sm'>
-              Interactive Blogging Platform for Sharing and Reacting to Posts.
+              Welcome To a Interactive Blogging Platform,
+              <span className='flex gap-1'>
+               Keep Sharing Your Thoughts<span className='flex justify-center items-center text-red-400'>
+               <FaHeart/>
+               </span>
+              </span>
             </p>
           </div>
 
@@ -60,40 +67,39 @@ const Signup = () => {
              <form className='flex flex-col gap-5' onSubmit={handleSubmit}>
                  
                  
-                 <div className='flex flex-col '>
-                  <Label value='Your Username:'/>
-                  <Textarea
-                    className='border border-slate-300 rounded-lg resize-none h-12 outline-none px-2 py-1 text-xl bg-slate-100' 
+                 <div className='flex flex-col ' >
+                  <Label value='Your Username:'className='mb-1'/>
+                  <TextInput 
                     type='text'
                     placeholder='Username'
                     id='username'
                     onChange={changeHandler}
                   />
                   </div>
-
-                  <div className='flex flex-col '>
-                  <Label value='Your Email:'/>
-                  <input
-                   className='border border-slate-300 rounded-lg h-12 outline-none px-2 py-1 text-xl bg-slate-100'
-                   type='email'
-                   placeholder='name@company.com'
-                   id='email'
-                   onChange={changeHandler}
-                  />
-                  </div>
-
-                  <div className='flex flex-col '>
-                  <Label value='Your Password:'/>
-                  <input
-                   className='border border-slate-300 rounded-lg h-12 outline-none px-2 py-1 text-xl bg-slate-100'
-                   type='password'
-                   placeholder='Password'
-                   id='password'
-                   onChange={changeHandler}
-                  />
-                  </div>
                   
-                  <Button className='bg-gradient-to-r from-amber-300 via-orange-300 to-red-300 w-96 h-11 rounded-lg outline-none' type='submit'>
+                  <div className='flex flex-col '>
+                  <Label value='Your Email:'className='mb-1'/>
+                  <TextInput 
+                    type='email'
+                    placeholder='abcd@gmail.com'
+                    id='email'
+                    onChange={changeHandler}
+                  />
+                  </div>
+
+                  <div className='flex flex-col '>
+                  <Label value='Your Password:'className='mb-1'/>
+                  <TextInput 
+                    type='password'
+                    placeholder='Password'
+                    id='password'
+                    onChange={changeHandler}
+                  />
+                  </div>
+
+                  
+                  
+                  <Button gradientDuoTone="redToYellow" type='submit'>
                     {
                         loading ? (
                             <>
@@ -106,14 +112,14 @@ const Signup = () => {
              </form>
 
 
-             <div className='flex gap-2 mt-5 text-sm'>
+             <div className='flex gap-2 mt-5 mb-5 text-sm'>
                 <span>Have an account?</span>
                 <Link to='/signin' className='text-blue-500'>Signin</Link>
              </div>
 
              {
                 errorMessage &&(
-                <Alert color="failure" className='mt-4 w-96 min-h-11 rounded-lg py-1 px-2 bg-red-100 font-bold items-center justify-center'>
+                <Alert color="failure" icon={HiInformationCircle} className='max-h-11 rounded-lg py-1 px-2 bg-red-100 font-bold items-center justify-center'>
                   {errorMessage}
                 </Alert>
                 )

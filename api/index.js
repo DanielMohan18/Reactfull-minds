@@ -1,10 +1,11 @@
+import dotenv from "dotenv";
+dotenv.config({ path: './.env' });
 import express from "express";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 import userRoute from "./routes/user.route.js";
 import authRoute from "./routes/auth.route.js";
 
-dotenv.config();
+
 
 mongoose.set('debug', true); // Enable debug mode
 
@@ -22,6 +23,7 @@ mongoose.connect
 const app = express();
 
 app.use(express.json());
+
 
 app.listen(3100, () => {
     console.log("The Server is running!");

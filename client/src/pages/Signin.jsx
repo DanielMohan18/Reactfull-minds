@@ -1,15 +1,16 @@
 import { Alert, Button, Label, Spinner, Textarea } from 'flowbite-react'
 import { set } from 'mongoose';
 import React, { useState } from 'react'
-import { Link,useNavigate } from 'react-router-dom'
-
+import { Link,useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { HiInformationCircle } from 'react-icons/hi';
+import { signInFailure,signInSuccess,signInStart } from '../redux/user/userSlice';
 
 export default function Signin() {
-  const [errorMessage,seterrorMessage] = useState(null);
-  const [loading,setLoading] =useState(false);
   const[formData,setformData] = useState({});
   const navigate=useNavigate();
-  
+  const dispatch=useDispatch();
+  const {loading,error: errorMessage} =useSelector(state=>state.user);
   const changeHandler=(e)=>{
       setformData({...formData,[e.target.id]:e.target.value.trim() })
   }
@@ -17,11 +18,10 @@ export default function Signin() {
   const handleSubmit= async (e) => {
       e.preventDefault();
       if( !formData.password || !formData.email){
-        seterrorMessage('Please Fill Every Field !');
+        return dispatch(signInFailure('Please Fill Every Field !'));
       }
       try{
-         setLoading(true); 
-         seterrorMessage(null); 
+         dispatch(signInStart());
          const res = await fetch("/api/auth/signin",{
           method:'POST',
           headers: {'Content-Type': 'application/json' },
@@ -30,15 +30,14 @@ export default function Signin() {
          const data =await res.json();
 
          if(data.success === false){
-              setLoading(false);
-              return seterrorMessage(data.message);
+              dispatch(signInFailure(data.message));
          }
-         setLoading(false);
          if(res.ok){
-          return navigate('/');
+          dispatch(signInSuccess(data));
+          navigate('/');
          }
       }catch(error){
-          setLoading(false);
+        dispatch(signInFailure(error.message));
       }
   }
   return (
@@ -50,7 +49,7 @@ export default function Signin() {
              Minds
             </Link>
             <p className='mt-4 text-gray-500 text-sm'>
-              Interactive Blogging Platform for Sharing and Reacting to Posts.
+              Interactive Blogging Platform for Creating and Reacting to Posts.
             </p>
           </div>
 
@@ -94,14 +93,14 @@ export default function Signin() {
              </form>
 
 
-             <div className='flex gap-2 mt-5 text-sm'>
+             <div className='flex gap-2 mt-5 mb-5 text-sm'>
                 <span>Don't have an account?</span>
                 <Link to='/signup' className='text-blue-500'>SignUp</Link>
              </div>
 
              {
                 errorMessage &&(
-                <Alert color="failure" className='mt-4 w-96 min-h-11 rounded-lg py-1 px-2 bg-red-100 font-bold items-center justify-center'>
+                <Alert color="failure" icon={HiInformationCircle} className='max-h-11 rounded-lg py-1 px-2 bg-red-100 font-bold items-center justify-center'>
                   {errorMessage}
                 </Alert>
                 )
